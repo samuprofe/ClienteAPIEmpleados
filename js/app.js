@@ -1,9 +1,5 @@
-/////////////// EJECUCIÓN AL INICIO ////////////////
-
-// carga de proyectos
+////////////// EJECUCIÓN AL INICIO /////////////////
 obtenerProyectos();
-
-
 
 ////////////// MANEJADORES DE EVENTOS //////////////
 
@@ -28,7 +24,7 @@ document.getElementById('candelProyectoBtn').addEventListener("click",() =>{
 
 
 
-/////////////////// MÉTODOS ASINCRONOS. CONEXIÓN CON EL SERVIDOR (AJAX) ////////////////
+/////////////// MÉTODOS ASINCRONOS. CONEXIÓN CON EL SERVIDOR (AJAX) //////////////
 async function obtenerProyectos() {
     try {
         const response = await fetch("http://localhost:8080/proyectos");
@@ -50,8 +46,10 @@ async function obtenerProyectos() {
             <td>${proyecto.descripcion}</td>
             <td>${proyecto.presupuesto}</td>
             <td>${proyecto.fechaInicio}</td>
-            <td><button class ="btn btn-danger btn-sm" onclick="borrarProyecto(${proyecto.id}, this)">Borrar</button></td>
-            `;
+            <td><button class ="btn btn-info btn-sm" onclick="verEmpleados(${proyecto.id})">Empleados</button> 
+            <button class ="btn btn-info btn-sm" onclick="gestionarEmpleados(${proyecto.id})">Gestionar</button>
+            <button class ="btn btn-warning btn-sm" onclick="editarProyecto(${proyecto.id})">Editar</button> 
+            <button class ="btn btn-danger btn-sm" onclick="borrarProyecto(${proyecto.id}, this)">Borrar</button></td>`;
             document.getElementById("tableBody").appendChild(fila);
         })
 
@@ -127,6 +125,11 @@ async function borrarProyecto(id, elemento){
     }catch (error){
         console.error("Error:", error);
     }
+}
+
+
+function gestionarEmpleados(id, elemento) {
+    location.href=`gestionar_empleados.html?id=${id}`;
 }
 
 
