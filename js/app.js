@@ -1,4 +1,34 @@
+/////////////// EJECUCIÓN AL INICIO ////////////////
 
+// carga de proyectos
+obtenerProyectos();
+
+
+
+////////////// MANEJADORES DE EVENTOS //////////////
+
+//Cargar proyectos
+document.getElementById("cargarProyectosBtn")
+    .addEventListener("click",obtenerProyectos);
+
+//Crear nuevos proyectos
+document.getElementById("nuevoProyectoBtn").addEventListener("click", nuevoProyecto);
+
+//Abrir la ventana modal de creación de proyecto
+const addProyectoDialog = document.getElementById("nuevoProyectoDialog");
+document.getElementById("openDialogAddProyectoBtn").addEventListener("click",
+    () =>{
+        addProyectoDialog.showModal();
+    });
+
+//Cerrar la ventana modal de creación de proyectos
+document.getElementById('candelProyectoBtn').addEventListener("click",() =>{
+    addProyectoDialog.close();
+})
+
+
+
+/////////////////// MÉTODOS ASINCRONOS. CONEXIÓN CON EL SERVIDOR (AJAX) ////////////////
 async function obtenerProyectos() {
     try {
         const response = await fetch("http://localhost:8080/proyectos");
@@ -29,29 +59,6 @@ async function obtenerProyectos() {
         console.error("Error:", error);
     }
 }
-
-//Actualizamos los proyectos al pulsar el botón
-document.getElementById("cargarProyectosBtn")
-    .addEventListener("click",obtenerProyectos);
-
-//Añado manejador de evento para crear nuevos proyectos
-document.getElementById("nuevoProyectoBtn").addEventListener("click", nuevoProyecto);
-
-//Añado manejador de evento para abrir la ventana modal de creación de proyecto
-const addProyectoDialog = document.getElementById("nuevoProyectoDialog");
-document.getElementById("openDialogAddProyectoBtn").addEventListener("click",
-        () =>{
-            addProyectoDialog.showModal();
-        });
-
-//Manejador de evento para cerrar la ventana modal de creación de proyectos
-document.getElementById('candelProyectoBtn').addEventListener("click",() =>{
-    addProyectoDialog.close();
-})
-
-//Ejecutamos la carga de proyectos cuando finalice la carga del HTML
-obtenerProyectos();
-
 
 
 async function nuevoProyecto(){
@@ -122,11 +129,4 @@ async function borrarProyecto(id, elemento){
     }
 }
 
-/*
-fetch("http://localhost:8080/proyectos")
-.then(response => response.json() )
-.then(datos => {
-    console.log(datos)
-})
-.catch(error => console.error(error))
-*/
+
